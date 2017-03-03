@@ -27,108 +27,58 @@ import be.kuleuven.cs.som.annotate.*;
 
 
 public class Ship {
+	/**
+	 * Initialize this new ship with given xCoordinate, yCoordinate, velocity with xComponent and yComponent, radius and orientation
+	 * @param xCoordinate
+	 * 			xCoordinate of this new ship
+	 * @param yCoordinate
+	 * 			yCoordinate of this new ship
+	 * @param xComponent
+	 * 			xComponent of the velocity of this new ship
+	 * @param yComponent
+	 * 			yComponent of the velocity of this new ship
+	 * @param radius
+	 * 			radius of this new ship
+	 * @param orientation
+	 * 			orientation of this new ship
+	 * @effect The position of this new ship is set to a new position with given xCoordinate and yCoordinate
+	 * 			| setPosition(xCoordinate, yCoordinate)
+	 * @effect The velocity of this new ship is set to a new velocity with given xComponent and yComponent
+	 * 			| setVelocity(xComponent, yComponent)
+	 * @effect The orientation of this new ship is set to the given orientation
+	 * 			| setOrientation(orientation)
+	 * @post   If the given radius is valid, the radius of this new ship is set to the given radius
+	 * 			| if (isValidRadius(radius))
+	 * 			|	then new.getRadius() == radius
+	 * @throws	IllegalRadiusException
+	 * 			The given radius is not valid
+	 * 			| ! isValidRadius(radius)
+	 */
+	public Ship(double xCoordinate, double yCoordinate, double xComponent, double yComponent, 
+								double radius, double orientation) throws IllegalCoordinateException, IllegalRadiusException {
+		if (! isValidRadius(radius))
+			throw new IllegalRadiusException();
+		this.radius = radius;
+		setPosition(xCoordinate, yCoordinate);
+		setVelocity(xComponent, yComponent);
+		setOrientation(orientation);
+	}
 	
-//	/**
-//	 * Initialize this new ship with given radius.
-//	 * 
-//	 * @param  radius
-//	 *         The radius for this new ship.
-//	 * @post   The radius of this new ship is equal to the given radius.
-//	 *       | new.getRadius() == radius
-//	 * @throws IllegalRadiusException
-//	 *         This new ship cannot have the given radius as its radius.
-//	 *       | ! canHaveAsRadius(this.getRadius())
-//	 */
-//	public Ship(double radius) throws IllegalRadiusException {
-//		if (! isValidRadius(radius))
-//			throw new IllegalRadiusException();
-//		this.radius = radius;
-//	}
-//	
-//	/**
-//	 * Initialize this new ship with given position.
-//	 *
-//	 * @param  position
-//	 *         The position for this new ship.
-//	 * @param  radius
-//	 * 		   The radius for this new ship
-//	 * @effect This new ship is initialized with the given radius as its radius
-//	 * 			| this(radius)
-//	 * @effect The position of this new ship is set to the given position.
-//	 *         	| this.setPosition(position)
-//	 * @throws IllegalRadiusException
-//	 * 			The given radius is not a valid radius.
-//	 * 			| !isValidRadius(radius)
-//	 * @throws IllegalPositionException
-//	 * 			The given position is not a valid position.
-//	 * 			| !isValidPosition(position)
-//	 */
-//	public Ship(double[] position, double radius) throws IllegalPositionException,IllegalRadiusException {
-//		this(radius);
-//		this.setPosition(position);
-//	}
-//	
-//	/**
-//	 * Initialize this new ship with given orientation.
-//	 * 
-//	 * @param  orientation
-//	 *         The orientation for this new ship.
-//	 * @pre    The given orientation must be a valid orientation for any ship.
-//	 *       	| isValidOrientation(orientation)
-//	 * @effect This new ship is initialized with the given radius as its radius
-//	 * 			| this(radius)
-//	 * @post   The orientation of this new ship is equal to the given orientation.
-//	 *       	| new.getOrientation() == orientation
-//	 * @throws IllegalRadiusException
-//	 * 			The given radius is not a valid radius.
-//	 * 			| !isValidRadius(radius)
-//	 */
-//	public Ship(double orientation, double radius) throws IllegalRadiusException {
-//		this(radius);
-//		this.setOrientation(orientation);
-//	}
-//  
-//  /**
-//	 * Initialize this new ship with given position and velocity.
-//	 *
-//	 * @param	position
-//	 *        	The position for this new ship.
-//	 * @param	velocity
-//	 * 			The velocity for this new ship
-//	 * @effect 	The position of this new ship is set to
-//	 *         	the given position.
-//	 *         	| this.setPosition(position)
-//	 * @effect	The velocity of this new ship is set to
-//	 * 			the given velocity
-//	 * 			| this.setVelocity(velocity)
-//	 * @post	The speed limit of this ship is set to the speed of light
-//	 * 			| this.getSpeedLimit() == SPEED_OF_LIGHT
-//	 * @throws IllegalPositionException
-//	 * 			The given position is not a valid position.
-//	 * 			| !isValidPosition(position)
-//	 */
-//	public Ship(double[] position, double[] velocity) throws IllegalPositionException {
-//		if (Ship.isValidPosition(position))
-//			throw new IllegalPositionException();
-//		this.setPosition(position);
-//		this.setVelocity(velocity);
-//		this.speedLimit = SPEED_OF_LIGHT;
-//	}
-	
-	
-//	/**
-//	 * Initialize this new ship with given position.
-//	 *
-//	 * @param  position
-//	 *         The position for this new ship.
-//	 * @effect The position of this new ship is set to
-//	 *         the given position.
-//	 *       | this.setPosition(position)
-//	 */
-//	public Ship(Position position) throws IllegalCoordinateException, NullPointerException {
-//		this.setPosition(position);
-//	}
-	
+	/**
+	 * Initialize a new ship with given xCoordinate, yCoordinate and radius.
+	 * @param xCoordinate
+	 * 			xCoordinate of this new ship
+	 * @param yCoordinate
+	 * 			yCoordinate of this new ship
+	 * @param radius
+	 * 			radius of this new ship
+	 * @effect This new ship is initialized with the given xCoordinate and yCoordinate as its position, the given radius as its radius,
+	 * 			zero velocity and right-pointing orientation.
+	 * 			| this(xCoordinate, yCoordinate, 0, 0, radius, 0)
+	 */
+	public Ship(double xCoordinate, double yCoordinate, double radius) throws IllegalCoordinateException, IllegalRadiusException {
+		this(xCoordinate, yCoordinate, 0, 0, radius, 0);
+	}
 	
 	/**
 	 * Return the position of this ship.
@@ -145,9 +95,30 @@ public class Ship {
 	 *         The position to check.
 	 * @return true iff the given position is effective.
 	 *       | result == position != null
-	*/
+	 */
+	
 	public static boolean isValidPosition(Position position) {
 		return position != null;
+	}
+	
+	/**
+	 * Move this ship during a given time duration.
+	 * 
+	 * @param duration
+	 * 			The length of the time interval during which the ship is moved.
+	 * @effect Each new coordinate of the position of this ship is set to the sum of the old coordinate
+	 * 			and the given duration times the corresponding component of the velocity of this ship.
+	 * 			| setPosition(getPosition().getxCoordinate() + duration * getVelocity().getxComponent(),
+	 * 			|				getPosition().getyCoordinate() + duration * getVelocity().getyComponent())
+	 * @throws IllegalArgumentException
+	 * 			The given duration is strictly less than 0.
+	 * 			| duration < 0
+	 */
+	public void move(double duration) throws IllegalArgumentException, IllegalCoordinateException {
+		if (duration < 0)
+			throw new IllegalArgumentException();
+		setPosition(getPosition().getxCoordinate() + duration * getVelocity().getxComponent(),
+				getPosition().getyCoordinate() + duration * getVelocity().getyComponent());
 	}
 	
 	/**
@@ -165,7 +136,7 @@ public class Ship {
 	 * 		   One of the given coordinates is not valid
 	 * 		 | ! Position.isValidCoordinate(xCoordinate) || ! Position.isValidCoordinate(yCoordinate)
 	 */
-	@Raw
+	@Raw @Model
 	private void setPosition(double xCoordinate, double yCoordinate) throws IllegalCoordinateException {
 		try {
 			this.position.setPosition(xCoordinate, yCoordinate);
@@ -184,7 +155,7 @@ public class Ship {
 	
 	
 	/**
-	 * Return the orientation of this ship.
+	 * Return the orientation of this ship in radians.
 	 */
 	@Basic @Raw
 	public double getOrientation() {
@@ -203,6 +174,18 @@ public class Ship {
 	}
 	
 	/**
+	 * Turn this ship over a given angle.
+	 * 
+	 * @param angle
+	 * 			The angle over which this ship must be turned.
+	 * @effect The new orientation of this ship is set to the current orientation plus the given angle.
+	 * 			| setOrientation(getOrientation() + angle)
+	 */
+	public void turn(double angle) {
+		setOrientation(getOrientation() + angle);
+	}
+	
+	/**
 	 * Set the orientation of this ship to the given orientation.
 	 * 
 	 * @param  orientation
@@ -211,15 +194,15 @@ public class Ship {
 	 *       | isValidOrientation(orientation)
 	 * @post   The orientation of this ship is equal to the given orientation.
 	 *       | new.getOrientation() == orientation
-	 */
-	@Raw
+	 */	
+	@Raw @Model
 	private void setOrientation(double orientation) {
 		assert isValidOrientation(orientation);
 		this.orientation = orientation;
 	}
 	
 	/**
-	 * Variable registering the orientation of this ship.
+	 * Variable registering the orientation of this ship in radians.
 	 */
 	private double orientation;
 	
@@ -321,6 +304,25 @@ public class Ship {
 	}
 	
 	/**
+	 * Change the velocity of this ship with a given amount.
+	 * 
+	 * @param amount
+	 * 		The amount to be added to the velocity.
+	 * @effect If amount is non-negative , the x component (resp. y component) of the new
+	 * 			velocity of this ship is set to the sum of the current component
+	 * 			plus amount times the cosine (resp. sine) of the orientation of this ship.
+	 * 			| if (amount >= 0)
+	 * 			|	then setVelocity(getVelocity().getxComponent() + amount * Math.cos(getOrientation()),
+	 * 			|						getVelocity().getyComponent() + amount * Math.sin(getOrientation()))
+	 * 			
+	 */
+	public void thrust(double amount) {
+		if (amount >= 0)
+			setVelocity(getVelocity().getxComponent() + amount * Math.cos(getOrientation()),
+					 	getVelocity().getyComponent() + amount * Math.sin(getOrientation()));
+	}
+	
+	/**
 	 * Set the velocity of this ship to the given velocity.
 	 * 
 	 * @param  xComponent
@@ -387,4 +389,7 @@ public class Ship {
 	 */
 	
 	private static final double SPEED_OF_LIGHT = 300000;
+	
+	
+	
 }
