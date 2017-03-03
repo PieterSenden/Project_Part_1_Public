@@ -391,5 +391,27 @@ public class Ship {
 	private static final double SPEED_OF_LIGHT = 300000;
 	
 	
-	
+	/**
+	 * Calculates the distance between two ships
+	 * @param ship1
+	 * 			The first ship
+	 * @param ship2
+	 * 			The second ship
+	 * @return If the two ships are effective and different, the distance between the two ships.
+	 * 			| 
+	 * 			| 
+	 * @return If the two ships are effective and identical, zero.
+	 * 			| result == 0
+	 * @throws NullPointerException
+	 * 			One of the ships is not effective
+	 * 			| (ship1 == null) || (ship2 == null)
+	 */
+	public static double getDistanceBetween(Ship ship1, Ship ship2) throws NullPointerException{
+		if ((ship1 != null) && (ship1 == ship2))
+			return 0;
+		double result = Math.hypot(ship1.getPosition().getxCoordinate() - ship2.getPosition().getxCoordinate(),
+				ship1.getPosition().getyCoordinate() - ship2.getPosition().getyCoordinate());
+		result = result - ship1.getRadius() - ship2.getRadius();
+		return result;
+	}
 }
