@@ -284,6 +284,8 @@ public class Ship {
 	 */
 	@Basic @Raw
 	public Velocity getVelocity() {
+		if (this.velocity == null)
+			return null;
 		return this.velocity.clone();
 	}
 	
@@ -329,10 +331,21 @@ public class Ship {
 	 *         The new xComponent for the velocity for this ship.
 	 * @param  YComponent
 	 *         The new yComponent for the velocity for this ship.
-	 * @post   The xComponent of the velocity of this new ship is equal to the given velocity.
-	 *       | new.getVelocity().getxComponent() == xComponent
-	 * @post   The yComponent of the velocity of this new ship is equal to the given velocity.
-	 *       | new.getVelocity().getyComponent() == yComponent
+	 * @post   If this ship can have the velocity with the given xComponent and  given yComponent as its velocity, 
+	 * 			then the xComponent of the velocity of this new ship is equal to the given xComponent,
+	 * 			and the yComponent of the velocity of this new ship is equal to the given yComponent.
+	 *       | if (this.canHaveAsVelocity(new Velocity(xComponent,yComponent))
+	 *       | 		then (new.getVelocity().getxComponent() == xComponent)
+	 *       |			&& (new.getVelocity().getyComponent() == yComponent)
+	 * @post   If this ship cannot have the velocity with the given xComponent and  given yComponent as its velocity,
+	 * 			the new velocity of this ship is set to a velocity such that the direction corresponds with the
+	 *			velocity with given xComponent and yComponent, but the speed is set to the speedLimit. More concretely,
+	 *			the xComponent of the new velocity of this ship is set to (xComponent * getSpeedLimit() / speed) and the
+	 *			yComponent of the new velocity of this ship is set to (yComponent * getSpeedLimit() / speed), where
+	 *			speed is the speed corresponding with the velocity with given xComponent and yComponent.
+	 *		 | if (! this.canHaveAsVelocity(new Velocity(xComponent, yComponent))
+	 *		 | 		then (new.getVelocity().getxComponent() == xComponent * getSpeedLimit / Math.hypot(xComponent, yComponent))
+	 *		 |			&& (new.getVelocity().getyComponent() == yComponent * getSpeedLimit / Math.hypot(xComponent, yComponent))
 	 * @throws IllegalComponentException
 	 * 		   One of the given components is not valid
 	 * 		 | ! Velocity.isValidComponent(xComponent) || ! Velocity.isValidComponent(yComponent)
