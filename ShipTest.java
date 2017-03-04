@@ -8,6 +8,8 @@ import org.junit.Test;
 
 public class ShipTest {
 
+	private Ship myShip;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		
@@ -15,43 +17,90 @@ public class ShipTest {
 
 	@Before
 	public void setUp() throws Exception {
+		myShip = new Ship(0, 0, 10, 10, 10, 0);
 	}
 
 	@Test
 	public void mostExtendedConstructor_LegalCase() throws Exception {
-		Ship myShip = new Ship(1, 2, 3, 4, 15, Math.PI / 2);
+		myShip = new Ship(1, 2, 3, 4, 15, Math.PI / 2);
 		assertEquals(myShip.getPosition().getxCoordinate(), 1);
 		assertEquals(myShip.getPosition().getyCoordinate(), 2);
 		assertEquals(myShip.getVelocity().getxComponent(), 3);
 		assertEquals(myShip.getVelocity().getyComponent(), 4);
+		assertEquals(myShip.getRadius(), 15);
+		assertEquals(myShip.getOrientation(), Math.PI / 2);
+	}
+	
+	@Test(expected = IllegalCoordinateException.class)
+	public void mostExtendedConstructor_IllegalCoordinate() throws Exception {
+		myShip = new Ship(Double.NaN, 2, 3, 4, 15, Math.PI / 2);
+	}
+	
+	@Test(expected = IllegalRadiusException.class)
+	public void mostExtendedConstructor_IllegalRadius() throws Exception {
+		myShip = new Ship(1, 2, 3, 4, 3, Math.PI / 2);
+	}
+	
+	@Test
+	public void leastExtendedConstructor_LegalCase() throws Exception {
+		myShip = new Ship(1, 2, 15);
 		assertEquals(myShip.getPosition().getxCoordinate(), 1);
+		assertEquals(myShip.getPosition().getyCoordinate(), 2);
+		assertEquals(myShip.getVelocity().getxComponent(), 0);
+		assertEquals(myShip.getVelocity().getyComponent(), 0);
+		assertEquals(myShip.getRadius(), 15);
+		assertEquals(myShip.getOrientation(), 0);
+	}
+	
+	@Test(expected = IllegalCoordinateException.class)
+	public void leastExtendedConstructor_IllegalCoordinate() throws Exception {
+		myShip = new Ship(Double.NaN, 2, 15);
+	}
+	
+	@Test(expected = IllegalRadiusException.class)
+	public void leastExtendedConstructor_IllegalRadius() throws Exception {
+		myShip = new Ship(1, 2, 3);
 	}
 
 	@Test
-	public void testShipDoubleDoubleDouble() {
-		fail("Not yet implemented");
+	public void isValidPosition_TrueCase() {
+		assertTrue(Ship.isValidPosition(new Position(1, 1)));
 	}
 
 	@Test
-	public void testIsValidPosition() {
-		fail("Not yet implemented");
+	public void isValidPosition_FalseCase() {
+		assertFalse(Ship.isValidPosition(null));
+	}
+	
+	@Test
+	public void move_LegalCase() {
+		myShip.move(1);
+		assertEquals(myShip.getPosition().getxCoordinate(), 0 + 1 * 10);
+		assertEquals(myShip.getPosition().getyCoordinate(), 0 + 1 * 10);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void move_InvalidDuration() {
+		myShip.move(-2);
 	}
 
 	@Test
-	public void testMove() {
-		fail("Not yet implemented");
+	public void isValidOrientation_TrueCase() {
+		assertTrue(Ship.isValidOrientation(Math.PI / 2));
+	}
+	
+	@Test
+	public void isValidOrientation_FalseCase() {
+		assertFalse(Ship.isValidOrientation(-10));
 	}
 
 	@Test
-	public void testIsValidOrientation() {
-		fail("Not yet implemented");
+	public void turn_LegalCase() {
+		myShip.turn(4);
+		assertEquals(myShip.getOrientation(), 0 + 4);
 	}
-
-	@Test
-	public void testTurn() {
-		fail("Not yet implemented");
-	}
-
+	
+	// Vanaf hier doet Joris
 	@Test
 	public void testIsValidRadius() {
 		fail("Not yet implemented");
