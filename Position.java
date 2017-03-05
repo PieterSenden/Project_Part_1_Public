@@ -113,6 +113,17 @@ public class Position {
 	private double yCoordinate;
 	
 	
+	/**
+	 * Set the xCoordinate and yCoordinate of this position to the given xCoordinate and yCoordinate
+	 * @param xCoordinate
+	 * 			The new xCoordinate for this position.
+	 * @param yCoordinate
+	 * 			The new yCoordinate for this position.
+	 * @effect The new xCoordinate of this position is set to the given xCoordinate.
+	 * 			| setxCoordinate(xCoordinate)
+	 * @effect The new yCoordinate of this position is set to the given yCoordinate.
+	 * 			| setyCoordinate(yCoordinate)
+	 */
 	public void setPosition(double xCoordinate, double yCoordinate) {
 		setxCoordinate(xCoordinate);
 		setyCoordinate(yCoordinate);
