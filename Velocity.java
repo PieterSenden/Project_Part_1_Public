@@ -104,6 +104,17 @@ public class Velocity {
 	private double yComponent = 0;
 	
 	
+	/**
+	 * Set the xComponent and yComponent of this velocity to the given xComponent and yComponent
+	 * @param xComponent
+	 * 			The new xComponent for this velocity.
+	 * @param yComponent
+	 * 			The new yComponent for this velocity.
+	 * @effect The new xComponent of this velocity is set to the given xComponent.
+	 * 			| setxComponent(xComponent)
+	 * @effect The new yComponent of this velocity is set to the given yComponent.
+	 * 			| setyComponent(yComponent)
+	 */
 	public void setVelocity(double xComponent, double yComponent) {
 		setxComponent(xComponent);
 		setyComponent(yComponent);
