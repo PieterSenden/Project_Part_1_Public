@@ -54,6 +54,7 @@ public class Ship {
 	 * 			The given radius is not valid
 	 * 			| ! isValidRadius(radius)
 	 */
+	@Raw
 	public Ship(double xCoordinate, double yCoordinate, double xComponent, double yComponent, 
 								double radius, double orientation) throws IllegalCoordinateException, IllegalRadiusException {
 		if (! isValidRadius(radius))
@@ -76,6 +77,7 @@ public class Ship {
 	 * 			zero velocity and right-pointing orientation.
 	 * 			| this(xCoordinate, yCoordinate, 0, 0, radius, 0)
 	 */
+	@Raw
 	public Ship(double xCoordinate, double yCoordinate, double radius) throws IllegalCoordinateException, IllegalRadiusException {
 		this(xCoordinate, yCoordinate, 0, 0, radius, 0);
 	}
