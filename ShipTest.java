@@ -49,12 +49,12 @@ public class ShipTest {
 	@Test
 	public void leastExtendedConstructor_LegalCase() throws Exception {
 		myShip = new Ship(1, 2, 15);
-		assertEquals(myShip.getPosition().getxCoordinate(), 1);
-		assertEquals(myShip.getPosition().getyCoordinate(), 2);
-		assertEquals(myShip.getVelocity().getxComponent(), 0);
-		assertEquals(myShip.getVelocity().getyComponent(), 0);
-		assertEquals(myShip.getRadius(), 15);
-		assertEquals(myShip.getOrientation(), 0);
+		assertEquals(myShip.getPosition().getxCoordinate(), 1, 0.01);
+		assertEquals(myShip.getPosition().getyCoordinate(), 2, 0.01);
+		assertEquals(myShip.getVelocity().getxComponent(), 0, 0.01);
+		assertEquals(myShip.getVelocity().getyComponent(), 0, 0.01);
+		assertEquals(myShip.getRadius(), 15, 0.01);
+		assertEquals(myShip.getOrientation(), 0, 0.01);
 	}
 	
 	@Test(expected = IllegalCoordinateException.class)
@@ -80,8 +80,8 @@ public class ShipTest {
 	@Test
 	public void move_LegalCase() {
 		myShip.move(1);
-		assertEquals(myShip.getPosition().getxCoordinate(), 0 + 1 * 10);
-		assertEquals(myShip.getPosition().getyCoordinate(), 0 + 1 * 10);
+		assertEquals(myShip.getPosition().getxCoordinate(), 0 + 1 * 10, 0.01);
+		assertEquals(myShip.getPosition().getyCoordinate(), 0 + 1 * 10, 0.01);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -102,7 +102,7 @@ public class ShipTest {
 	@Test
 	public void turn_LegalCase() {
 		myShip.turn(4);
-		assertEquals(myShip.getOrientation(), 0 + 4);
+		assertEquals(myShip.getOrientation(), 0 + 4, 0.01);
 	}
 	
 	@Test
