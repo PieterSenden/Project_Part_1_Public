@@ -131,7 +131,7 @@ public class ShipTest {
 		assertEquals(Ship.getMinimalRadius(), 5, 0.01);
 	}
 	
-	@Test(expected=IllegalMinimalRadiusException.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testSetMinimalRadius_IllegalRadius() {
 		Ship.setMinimalRadius(-5);
 	}
