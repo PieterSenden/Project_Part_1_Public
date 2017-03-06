@@ -122,14 +122,29 @@ public class Ship {
 		setPosition(getPosition().getxCoordinate() + duration * getVelocity().getxComponent(),
 				getPosition().getyCoordinate() + duration * getVelocity().getyComponent());
 	}
+	
 	/**
+	 * Return a copy of this ship as if it would have moved during a time interval with length duration.
+	 * 
 	 * @param duration
-	 * @return
+	 * 			The given duration during which this ship would move.
+	 * @return A clone of this ship on which the method move(duration) is applied.
+	 * 			| ... probleem verplaatst zich naar hier!!!
+	 * 			| this.clone() on which the method move(duration) is applied.
 	 */
 	@Model
 	private Ship getShipAfterMove(double duration) {
 		Ship tempShip = this.clone();
-		
+		tempShip.move(duration);
+		return tempShip;
+	}
+	
+	/**
+	 * @return A copy of this ship.
+	 */
+	public Ship clone() {
+		return new Ship(this.getPosition().getxCoordinate(), this.getPosition().getyCoordinate(), this.getVelocity().getxComponent(),
+					this.getVelocity().getyComponent(), this.getRadius(), this.getOrientation());
 	}
 	
 	/**
