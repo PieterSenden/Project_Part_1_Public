@@ -11,11 +11,14 @@ public class ShipTest {
 	private Ship myShip;
 	private static Velocity velocity_Legal, velocity_TooLarge;
 	private static Ship ship_MinimalRadius, ship_Orientation45deg;
+	private static Ship ship_Collision1, ship_Collision2;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		velocity_Legal = new Velocity(10,20);
 		velocity_TooLarge = new Velocity(300000,100);
+		ship_Collision1 = new Ship(0,0,10);
+		ship_Collision2 = new Ship(30,40,10);
 	}
 
 	@Before
@@ -185,5 +188,20 @@ public class ShipTest {
 	@Test
 	public void testIsValidSpeedLimit_TooLargeCase() {
 		assertFalse(Ship.isValidSpeedLimit(Ship.SPEED_OF_LIGHT+1));
+	}
+	
+	@Test
+	public void getDistanceBetween_NonIdenticalCase() {
+		assertEquals(Ship.getDistanceBetween(ship_Collision1, ship_Collision2), 30, 0.01);
+	}
+	
+	@Test
+	public void getDistanceBetween_IdenticalCase() {
+		assertEquals(Ship.getDistanceBetween(ship_Collision1, ship_Collision1), 0, 0.01);
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void getDistanceBetween_NonEffectiveCase() {
+		Ship.getDistanceBetween(ship_Collision1, null);
 	}
 }

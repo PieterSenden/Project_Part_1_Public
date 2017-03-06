@@ -404,16 +404,18 @@ public class Ship {
 	
 	
 	/**
-	 * Calculates the distance between two ships
+	 * Calculate the distance between two ships
 	 * @param ship1
 	 * 			The first ship
 	 * @param ship2
 	 * 			The second ship
-	 * @return If the two ships are effective and different, the distance between the two ships.
-	 * 			| 
-	 * 			| 
+	 * @return If the two ships are effective and different, the distance between the two ships (i.e. the distance
+	 * 				between the two centres minus the sum of their radii).
+	 * 			| If ((ship1 != null) && (ship2!= null) && (ship1 != ship2))
+	 * 			|	then Position.getDistanceBetween(ship1.getPosition(), ship2.getPosition()) - (ship1.getRadius() + ship2.getRadius())
 	 * @return If the two ships are effective and identical, zero.
-	 * 			| result == 0
+	 * 			| If ((ship1 != null) && (ship1 == ship2))
+	 * 			|	then result == 0
 	 * @throws NullPointerException
 	 * 			One of the ships is not effective
 	 * 			| (ship1 == null) || (ship2 == null)
@@ -421,9 +423,6 @@ public class Ship {
 	public static double getDistanceBetween(Ship ship1, Ship ship2) throws NullPointerException{
 		if ((ship1 != null) && (ship1 == ship2))
 			return 0;
-		double result = Math.hypot(ship1.getPosition().getxCoordinate() - ship2.getPosition().getxCoordinate(),
-				ship1.getPosition().getyCoordinate() - ship2.getPosition().getyCoordinate());
-		result = result - ship1.getRadius() - ship2.getRadius();
-		return result;
+		return Position.getDistanceBetween(ship1.getPosition(), ship2.getPosition()) - (ship1.getRadius() + ship2.getRadius());
 	}
 }

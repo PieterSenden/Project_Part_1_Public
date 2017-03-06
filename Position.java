@@ -136,4 +136,23 @@ public class Position {
 	public Position clone() {
 		return new Position(getxCoordinate(), getyCoordinate());
 	}
+	
+	
+	/**
+	 * Calculates the distance between two positions
+	 * @param pos1
+	 * 			The first position
+	 * @param pos2
+	 * 			The second position
+	 * @return If both positions are effective, the Euclidean distance between them is returned.
+	 * 			| Math.sqrt( (pos1.getxCoordinate() - pos2.getxCoordinate())^2 +
+	 *			| 	(pos1.getyCoordinate() - pos2.getyCoordinate())^2 )
+	 * @throws NullPointerException
+	 * 			One of the positions is not effective
+	 * 			| (pos1 == null) || (pos2 == null)
+	 */
+	public static double getDistanceBetween(Position pos1, Position pos2) throws NullPointerException {
+		return Math.hypot(pos1.getxCoordinate() - pos2.getxCoordinate(),
+				pos1.getyCoordinate() - pos2.getyCoordinate());
+	}
 }

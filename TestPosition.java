@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class TestPosition {
 	
-	private static Position position_00;
+	private static Position position_00, position_34;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -17,6 +17,7 @@ public class TestPosition {
 	@Before
 	public void setUp() throws Exception {
 		position_00 = new Position(0,0);
+		position_34 = new Position(3,4);
 	}
 	
 	@Test
@@ -74,5 +75,15 @@ public class TestPosition {
 		assertNotEquals(position_00, newPosition);
 		assertEquals(position_00.getxCoordinate(), newPosition.getxCoordinate(), 0.01);
 		assertEquals(position_00.getyCoordinate(), newPosition.getyCoordinate(), 0.01);
+	}
+	
+	@Test
+	public void getDistanceBetween_RegularCase() {
+		assertEquals(Position.getDistanceBetween(position_00, position_34), 5, 0.01);
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void getDistanceBetween_NonEffectiveCase() {
+		Position.getDistanceBetween(position_00, null);
 	}
 }
