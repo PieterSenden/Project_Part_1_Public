@@ -263,14 +263,14 @@ public class Ship {
 	 *         The new minimal radius for a ship.
 	 * @post   The minimal radius of any ship is equal to the given minimal radius.
 	 *       | Ship.getMinimalRadius() == minimalRadius
-	 * @throws IllegalMinimalRadiusException
+	 * @throws IllegalArgumentException
 	 *         The given minimal radius is not a valid minimal radius for any ship.
 	 *       | ! isValidMinimalRadius(getMinimalRadius())
 	 */
 	@Raw
-	public static void setMinimalRadius(double minimalRadius) throws IllegalMinimalRadiusException {
+	public static void setMinimalRadius(double minimalRadius) throws IllegalArgumentException {
 		if (! isValidMinimalRadius(minimalRadius))
-			throw new IllegalMinimalRadiusException();
+			throw new IllegalArgumentException();
 		Ship.minimalRadius = minimalRadius;
 	}
 	
@@ -348,15 +348,12 @@ public class Ship {
 	 *		 | if (! this.canHaveAsVelocity(new Velocity(xComponent, yComponent))
 	 *		 | 		then (new.getVelocity().getxComponent() == xComponent * getSpeedLimit / Math.hypot(xComponent, yComponent))
 	 *		 |			&& (new.getVelocity().getyComponent() == yComponent * getSpeedLimit / Math.hypot(xComponent, yComponent))
-	 * @throws IllegalComponentException
-	 * 		   One of the given components is not valid
-	 * 		 | ! Velocity.isValidComponent(xComponent) || ! Velocity.isValidComponent(yComponent)
 	 */
 	@Raw
 	private void setVelocity(double xComponent, double yComponent) {
 		if (this.getVelocity() == null)
-			this.velocity = new Velocity(xComponent, yComponent);
-		else if (this.canHaveAsVelocity(new Velocity(xComponent, yComponent)))
+			this.velocity = new Velocity(0, 0);
+		if (this.canHaveAsVelocity(new Velocity(xComponent, yComponent)))
 			this.velocity.setVelocity(xComponent, yComponent);
 		else {
 			double speed = Math.hypot(xComponent, yComponent);
@@ -403,7 +400,7 @@ public class Ship {
 	 * Constant representing the speed of light (i.e. 300000 km/s)
 	 */
 	
-	private static final double SPEED_OF_LIGHT = 300000;
+	public static final double SPEED_OF_LIGHT = 300000;
 	
 	
 	/**
