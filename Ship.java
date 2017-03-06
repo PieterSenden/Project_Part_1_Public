@@ -122,6 +122,15 @@ public class Ship {
 		setPosition(getPosition().getxCoordinate() + duration * getVelocity().getxComponent(),
 				getPosition().getyCoordinate() + duration * getVelocity().getyComponent());
 	}
+	/**
+	 * @param duration
+	 * @return
+	 */
+	@Model
+	private Ship getShipAfterMove(double duration) {
+		Ship tempShip = this.clone();
+		
+	}
 	
 	/**
 	 * Set the position of this ship to the given position.
@@ -425,4 +434,50 @@ public class Ship {
 			return 0;
 		return Position.getDistanceBetween(ship1.getPosition(), ship2.getPosition()) - (ship1.getRadius() + ship2.getRadius());
 	}
+	
+	/**
+	 * Determine whether two ships overlap
+	 * @param ship1
+	 * 			The first ship
+	 * @param ship2
+	 * 			The second ship
+	 * @return If the two ships are effective and different, true iff the distance between the two ships is non-positive.
+	 * 			| If ((ship1 != null) && (ship2!= null) && (ship1 != ship2))
+	 * 			|	then return (Ship.getDistanceBetween(ship1, ship2) <= 0)
+	 * @return If the two ships are effective and identical, true.
+	 * 			| If ((ship1 != null) && (ship1 == ship2))
+	 * 			|	then result == true
+	 * @throws NullPointerException
+	 * 			One of the ships is not effective
+	 * 			| (ship1 == null) || (ship2 == null)
+	 */
+	public static boolean overlap(Ship ship1, Ship ship2) throws NullPointerException {
+		return (Ship.getDistanceBetween(ship1, ship2) <= 0);
+	}
+	
+	/**
+	 * Determine the time after which, if ever, two ships will collide.
+	 * @param ship1
+	 * 			The fist ship
+	 * @param ship2
+	 * 			The second ship
+	 * @return If both ships are effective and different, the result satisfies the following conditions:
+	 * 			1.	When both ships are moved during the returned duration, they overlap.
+	 * 			| if  ((ship1 != null) && (ship2!= null) && (ship1 != ship2))
+	 * 			| 	then (overlap(ship1, ship2) is true after the execution of the following code snippet
+	 * 			|		ship1.move(result)
+	 * 			|		ship2.move(result)
+	 * 			2.	When both ships are moved during a positive time less than the returned duration, they do not overlap.
+	 * 			| if  ((ship1 != null) && (ship2!= null) && (ship1 != ship2))
+	 * 			|	then (overlap(ship1, ship2) is false after the execution of the following code snippet
+	 * 			|		ship1.move(duration)
+	 * 			|		ship2.move(duration)
+	 * 			|	{ duration in the real numbers | 0 <= duration <= result} 
+	 * @throws NullPointerException
+	 */
+	public static double getTimeToCollison(Ship ship1, Ship ship2) throws NullPointerException, OverlapException {
+		return 0;
+	}
+	
+
 }

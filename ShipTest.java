@@ -204,4 +204,19 @@ public class ShipTest {
 	public void getDistanceBetween_NonEffectiveCase() {
 		Ship.getDistanceBetween(ship_Collision1, null);
 	}
+	
+	@Test
+	public void overlap_NonIdenticalCase() {
+		assertFalse(Ship.overlap(ship_Collision1, ship_Collision2));
+	}
+	
+	@Test
+	public void overlap_IdenticalCase() {
+		assertTrue(Ship.overlap(ship_Collision1, ship_Collision1));
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void overlap_NonEffectiveCase() {
+		Ship.overlap(ship_Collision1, null);
+	}
 }
