@@ -67,4 +67,12 @@ public class TestPosition {
 	public void testSetyCoordinate_IllegalCase() {
 		position_00.setyCoordinate(Double.NEGATIVE_INFINITY);
 	}
+	
+	@Test
+	public void clone_RegularCase() {
+		Position newPosition = position_00.clone();
+		assertNotEquals(position_00, newPosition);
+		assertEquals(position_00.getxCoordinate(), newPosition.getxCoordinate(), 0.01);
+		assertEquals(position_00.getyCoordinate(), newPosition.getyCoordinate(), 0.01);
+	}
 }
