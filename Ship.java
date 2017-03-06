@@ -490,7 +490,17 @@ public class Ship {
 	 * 			|	{ duration in the real numbers | 0 <= duration <= result} 
 	 * @throws NullPointerException
 	 */
-	public static double getTimeToCollison(Ship ship1, Ship ship2) throws NullPointerException, OverlapException {
+	/**
+	 * 
+	 * @return
+	 * 			| if  ((ship1 != null) && (ship2!= null) && (ship1 != ship2))
+	 * 			| 	then overlap(ship1.getShipAfterMove(result), ship2.getShipAfterMove(result))
+	 * 
+	 * 			| if  ((ship1 != null) && (ship2!= null) && (ship1 != ship2))
+	 * 			|	then for each duration in { time in the real numbers | 0 <= duration < result}
+	 * 			|		! overlap(ship1.getShipAfterMove(duration), ship2.getShipAfterMove(duration))
+	 */
+	public static double getTimeToCollision(Ship ship1, Ship ship2) throws NullPointerException, OverlapException {
 		return 0;
 	}
 	
