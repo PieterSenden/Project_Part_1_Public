@@ -13,4 +13,6 @@ public class IllegalPositionException extends RuntimeException {
 	public IllegalPositionException() {
 		super();
 	}
+	
+	private static final long serialVersionUID = 1L;
 }
