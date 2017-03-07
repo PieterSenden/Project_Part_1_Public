@@ -143,8 +143,8 @@ public class Ship {
 	 * @return A copy of this ship.
 	 */
 	public Ship clone() {
-		return new Ship(this.getPosition().getxCoordinate(), this.getPosition().getyCoordinate(), this.getVelocity().getxComponent(),
-					this.getVelocity().getyComponent(), this.getRadius(), this.getOrientation());
+		return new Ship(getPosition().getxCoordinate(), getPosition().getyCoordinate(), getVelocity().getxComponent(),
+					getVelocity().getyComponent(), getRadius(), getOrientation());
 	}
 	
 	/**
@@ -497,7 +497,7 @@ public class Ship {
 	 * 			| 	then overlap(ship1.getShipAfterMove(result), ship2.getShipAfterMove(result))
 	 * 
 	 * 			| if  ((ship1 != null) && (ship2!= null) && (ship1 != ship2))
-	 * 			|	then for each duration in { time in the real numbers | 0 <= duration < result}
+	 * 			|	then for each duration in { time in the real numbers | 0 <= time < result}
 	 * 			|		! overlap(ship1.getShipAfterMove(duration), ship2.getShipAfterMove(duration))
 	 */
 	public static double getTimeToCollision(Ship ship1, Ship ship2) throws NullPointerException, OverlapException {
