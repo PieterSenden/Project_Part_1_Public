@@ -122,6 +122,7 @@ public class Velocity {
 	}
 	
 	/** 
+	 * Generate a copy of this Velocity object
 	 * @return a copy of this Velocity object.
 	 */
 	@Override

@@ -130,11 +130,23 @@ public class Position {
 	}
 	
 	/** 
+	 * Generate a copy of this Position object
 	 * @return a copy of this Position object.
 	 */
 	@Override
 	public Position clone() {
 		return new Position(getxCoordinate(), getyCoordinate());
+	}
+	
+	/**
+	 * Return the position an array of length 2, with the position
+	 * along the X-axis at index 0 and the position along the Y-axis at index 1. 
+	 * @return  an array of length 2, with the position
+	 * 			along the X-axis at index 0 and the position along the Y-axis at index 1.
+	 * 			| new double[] {getxCoordinate(), getyCoordinate()}
+	 */
+	public double[] getAsArray() {
+		return new double[] {getxCoordinate(), getyCoordinate()};
 	}
 	
 	

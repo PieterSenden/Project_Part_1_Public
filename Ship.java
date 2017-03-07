@@ -550,8 +550,8 @@ public class Ship {
 		double radius2 = ship2Clone.getRadius();
 		double sumOfRadii = radius1 + radius2;
 		
-		return new Position( (position1.getxCoordinate() * radius1 + position2.getxCoordinate() * radius2) / sumOfRadii, 
-				(position1.getyCoordinate() * radius1 + position2.getyCoordinate() * radius2) / sumOfRadii);
+		return new Position( (position1.getxCoordinate() * radius2 + position2.getxCoordinate() * radius1) / sumOfRadii, 
+				(position1.getyCoordinate() * radius2 + position2.getyCoordinate() * radius1) / sumOfRadii);
 		
 	}
 	
