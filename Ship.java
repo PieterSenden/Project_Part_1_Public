@@ -487,7 +487,7 @@ public class Ship {
 	 * 			|	then (overlap(ship1, ship2) is false after the execution of the following code snippet
 	 * 			|		ship1.move(duration)
 	 * 			|		ship2.move(duration)
-	 * 			|	{ duration in the real numbers | 0 <= duration <= result} 
+	 * 			|	{ duration in the real numbers | 0 <= duration < result} 
 	 * @throws NullPointerException
 	 */
 	/**
