@@ -1,6 +1,7 @@
 package asteroids.model;
 
-import be.kuleuven.cs.som.annotate.*;
+import be.kuleuven.cs.som.annotate.Basic;
+import be.kuleuven.cs.som.annotate.Raw;
 
 /**
  * A class representing the velocity of a ship.

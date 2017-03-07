@@ -83,6 +83,15 @@ public class Ship {
 	}
 	
 	/**
+	 * @return A copy of this ship.
+	 */
+	public Ship clone() {
+		return new Ship(getPosition().getxCoordinate(), getPosition().getyCoordinate(), getVelocity().getxComponent(),
+				getVelocity().getyComponent(), getRadius(), getOrientation());
+	}
+	
+	
+	/**
 	 * Return the position of this ship.
 	 */
 	@Basic @Raw
@@ -122,6 +131,7 @@ public class Ship {
 		setPosition(getPosition().getxCoordinate() + duration * getVelocity().getxComponent(),
 				getPosition().getyCoordinate() + duration * getVelocity().getyComponent());
 	}
+	
 	
 	/**
 	 * Set the position of this ship to the given position.
@@ -425,4 +435,126 @@ public class Ship {
 			return 0;
 		return Position.getDistanceBetween(ship1.getPosition(), ship2.getPosition()) - (ship1.getRadius() + ship2.getRadius());
 	}
+	
+	/**
+	 * Determine whether two ships overlap
+	 * @param ship1
+	 * 			The first ship
+	 * @param ship2
+	 * 			The second ship
+	 * @return If the two ships are effective and different, true iff the distance between the two ships is non-positive.
+	 * 			| If ((ship1 != null) && (ship2!= null) && (ship1 != ship2))
+	 * 			|	then return (Ship.getDistanceBetween(ship1, ship2) <= 0)
+	 * @return If the two ships are effective and identical, true.
+	 * 			| If ((ship1 != null) && (ship1 == ship2))
+	 * 			|	then result == true
+	 * @throws NullPointerException
+	 * 			One of the ships is not effective
+	 * 			| (ship1 == null) || (ship2 == null)
+	 */
+	public static boolean overlap(Ship ship1, Ship ship2) throws NullPointerException {
+		return (Ship.getDistanceBetween(ship1, ship2) <= 0);
+	}
+	
+	/**
+	 * Determine the time after which, if ever, two ships will collide.
+	 * @param ship1
+	 * 			The fist ship
+	 * @param ship2
+	 * 			The second ship
+	 * @return If both ships are effective and different, the result satisfies the following conditions:
+	 * 			1.	After both ships are moved during the returned duration, they will overlap.
+	 * 			| if  ((ship1 != null) && (ship2!= null) && (ship1 != ship2))
+	 * 			| 	then (overlap(ship1, ship2)) is true after the execution of the following code snippet:
+	 * 			|			ship1.move(result);
+	 * 			|			ship2.move(result);
+	 * 			2.	After both ships are moved during a positive time less than the returned duration, they will not overlap.
+	 * 			| if  ((ship1 != null) && (ship2!= null) && (ship1 != ship2))
+	 * 			|	then for each duration in { time in the real numbers | 0 <= time < result}, 
+	 * 			|		(overlap(ship1, ship2)) is false after the execution of the following code snippet:
+	 * 			|			ship1.move(duration);
+	 * 			|			ship2.move(duration);
+	 * @throws NullPointerException
+	 * 			One of the ships is non-effective.
+	 * 			|	(ship1 == null) || (ship2 == null)
+	 * @throws OverlapException
+	 * 			The ships overlap
+	 * 			| overlap(ship1, ship2)
+	 */
+	public static double getTimeToCollision(Ship ship1, Ship ship2) throws NullPointerException, OverlapException {
+		if (overlap(ship1, ship2))
+			throw new OverlapException();
+		
+		double dx, dy, dvx, dvy, discriminant, sumOfRadii, dvDotdr;
+		dx = ship1.getPosition().getxCoordinate() - ship2.getPosition().getxCoordinate();
+		dy = ship1.getPosition().getyCoordinate() - ship2.getPosition().getyCoordinate();
+		dvx = ship1.getVelocity().getxComponent() - ship2.getVelocity().getxComponent();
+		dvy = ship1.getVelocity().getyComponent() - ship2.getVelocity().getyComponent();
+		sumOfRadii = ship1.getRadius() + ship2.getRadius();
+		dvDotdr = dvx * dx + dvy * dy;
+		
+		if (dvDotdr >= 0)
+			return Double.POSITIVE_INFINITY;
+		
+		discriminant = Math.pow(dvDotdr, 2) - Math.pow(Math.hypot(dvx, dvy), 2) *
+							(Math.pow(Math.hypot(dx, dy),  2) - Math.pow(sumOfRadii, 2));
+		if (discriminant <= 0)
+			return Double.POSITIVE_INFINITY;
+		return - (dvDotdr + Math.sqrt(discriminant)) / Math.pow(Math.hypot(dvx, dvy), 2);
+	}
+	
+	/**
+	 * Determine the position where, if ever, two ships will collide
+	 * @param ship1
+	 * 			The first ship.
+	 * @param ship2
+	 * 			The second ship.
+	 * @return Null, if the ships will not collide
+	 * 			| if (getTimeToCollision(ship1, ship2) == Double.POSITIVE_INFINITY)
+	 * 			|	then return null 
+	 * @return If the ships will collide, the result satisfies the following condition(s):
+	 * 			After both ships are moved during the time getTimeToCollision(ship1, ship2), the distance between
+	 * 			the result and the position of ship1 equals the radius of ship1 and the distance between
+	 * 			the result and the position of ship2 equals the radius of ship2.
+	 * 			| if ( Double.isFinite(getTimeToCollision(ship1, ship2)) )
+	 * 			| 	then (Position.getDistanceBetween(result, ship1.getPosition()) == ship1.getRadius() ) &&
+	 * 			|			(Position.getDistanceBetween(result, ship2.getPosition()) == ship2.getRadius() )
+	 * 			|	is true, after the execution of the following code snippet:
+	 * 			|			double duration = getTimeToCollision(ship1, ship2);
+	 * 			|			ship1.move(duration);
+	 * 			|			ship2.move(duration);
+	 * @throws NullPointerException
+	 * 			One of the ships is non-effective.
+	 * 			| (ship1 == null) || (ship2 == null)
+	 * @throws OverlapException
+	 * 			The ships overlap
+	 * 			| overlap(ship1, ship2)
+	 */
+	public static Position getCollisionPosition(Ship ship1, Ship ship2) throws NullPointerException, OverlapException{
+		if (overlap(ship1, ship2))
+			throw new OverlapException();
+		
+		double timeToCollision = getTimeToCollision(ship1, ship2);
+		if (timeToCollision == Double.POSITIVE_INFINITY)
+			return null;
+		
+		Ship ship1Clone = ship1.clone();
+		Ship ship2Clone = ship2.clone();
+		ship1Clone.move(timeToCollision);
+		ship2Clone.move(timeToCollision);
+		
+		Position position1 = ship1Clone.getPosition();
+		Position position2 = ship2Clone.getPosition();
+		
+		double radius1 = ship1Clone.getRadius();
+		double radius2 = ship2Clone.getRadius();
+		double sumOfRadii = radius1 + radius2;
+		
+		return new Position( (position1.getxCoordinate() * radius1 + position2.getxCoordinate() * radius2) / sumOfRadii, 
+				(position1.getyCoordinate() * radius1 + position2.getyCoordinate() * radius2) / sumOfRadii);
+		
+	}
+	
+	
+
 }
