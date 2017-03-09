@@ -139,9 +139,9 @@ public class Ship {
 	 *         The new xCoordinate for the position for this ship.
 	 * @param  yCoordinate
 	 *         The new yCoordinate for the position for this ship.
-	 * @post   The xCoordinate of the position of this new ship is equal to the given position.
+	 * @post   The xCoordinate of the position of this new ship is equal to the given xCoordinate.
 	 *       | new.getPosition().getxCoordinate() == xCoordinate
-	 * @post   The yCoordinate of the position of this new ship is equal to the given position.
+	 * @post   The yCoordinate of the position of this new ship is equal to the given yCoordinate.
 	 *       | new.getPosition().getyCoordinate() == yCoordinate
 	 * @throws IllegalCoordinateException
 	 * 		   One of the given coordinates is not valid
