@@ -157,7 +157,7 @@ public class Position {
 	 * @param pos2
 	 * 			The second position
 	 * @return If both positions are effective, the Euclidean distance between them is returned.
-	 * 			| Math.sqrt( (pos1.getxCoordinate() - pos2.getxCoordinate())^2 +
+	 * 			| result == Math.sqrt( (pos1.getxCoordinate() - pos2.getxCoordinate())^2 +
 	 *			| 	(pos1.getyCoordinate() - pos2.getyCoordinate())^2 )
 	 * @throws NullPointerException
 	 * 			One of the positions is not effective
