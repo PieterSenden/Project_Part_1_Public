@@ -367,9 +367,8 @@ public class Ship {
 			this.velocity.setVelocity(xComponent, yComponent);
 		else {
 			double speed = Math.hypot(xComponent, yComponent);
-			xComponent = xComponent * getSpeedLimit() / speed;
-			yComponent = yComponent * getSpeedLimit() / speed;
-			setVelocity(xComponent, yComponent);
+			this.velocity.setxComponent(xComponent * getSpeedLimit() / speed);
+			this.velocity.setyComponent(yComponent * getSpeedLimit() / speed);
 		}
 	}
 	
