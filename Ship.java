@@ -227,14 +227,13 @@ public class Ship {
 	}
 	
 	/**
-	 * Check whether this ship can have the given radius as its radius.
+	 * Check whether the given radius is a valid radius for any ship.
 	 *  
 	 * @param  radius
 	 *         The radius to check.
 	 * @return true iff the given radius is larger than the minimal radius for any ship.
 	 *       | result == (radius >= getMinimalRadius())
 	*/
-	@Raw
 	public static boolean isValidRadius(double radius) {
 		return radius >= getMinimalRadius();
 	}
@@ -248,7 +247,7 @@ public class Ship {
 	/**
 	 * Return the minimal radius of any ship.
 	 */
-	@Basic @Raw
+	@Basic
 	public static double getMinimalRadius() {
 		return minimalRadius;
 	}
@@ -276,7 +275,6 @@ public class Ship {
 	 *         The given minimal radius is not a valid minimal radius for any ship.
 	 *       | ! isValidMinimalRadius(getMinimalRadius())
 	 */
-	@Raw
 	public static void setMinimalRadius(double minimalRadius) throws IllegalArgumentException {
 		if (! isValidMinimalRadius(minimalRadius))
 			throw new IllegalArgumentException();
@@ -393,7 +391,6 @@ public class Ship {
 	 * @return True if and only if the given speed limit is strictly positive and not greater than the speed of light
 	 *       | result == (0 < speedLimit) && (speedLimit <= SPEED_OF_LIGHT)
 	*/
-	@Raw
 	public static boolean isValidSpeedLimit(double speedLimit) {
 		return (0 < speedLimit) && (speedLimit <= SPEED_OF_LIGHT);
 	}
