@@ -137,7 +137,7 @@ public class Ship {
 	 * 
 	 * @param  xCoordinate
 	 *         The new xCoordinate for the position for this ship.
-	 * @param  YCoordinate
+	 * @param  yCoordinate
 	 *         The new yCoordinate for the position for this ship.
 	 * @post   The xCoordinate of the position of this new ship is equal to the given position.
 	 *       | new.getPosition().getxCoordinate() == xCoordinate
