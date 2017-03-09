@@ -386,7 +386,7 @@ public class Ship {
 	}
 	
 	/**
-	 * Check whether this ship can have the given speed limit as its speed limit.
+	 * Check whether the given speedLimit is a valid speedLimit for any ship.
 	 *  
 	 * @param  speedLimit
 	 *         The speed limit to check.
