@@ -340,7 +340,7 @@ public class Ship {
 	 * 
 	 * @param  xComponent
 	 *         The new xComponent for the velocity for this ship.
-	 * @param  YComponent
+	 * @param  yComponent
 	 *         The new yComponent for the velocity for this ship.
 	 * @post   If this ship can have the velocity with the given xComponent and  given yComponent as its velocity, 
 	 * 			then the xComponent of the velocity of this new ship is equal to the given xComponent,
@@ -358,7 +358,7 @@ public class Ship {
 	 *		 | 		then (new.getVelocity().getxComponent() == xComponent * getSpeedLimit / Math.hypot(xComponent, yComponent))
 	 *		 |			&& (new.getVelocity().getyComponent() == yComponent * getSpeedLimit / Math.hypot(xComponent, yComponent))
 	 */
-	@Raw
+	@Raw @Model
 	private void setVelocity(double xComponent, double yComponent) {
 		if (this.getVelocity() == null)
 			this.velocity = new Velocity(0, 0);
