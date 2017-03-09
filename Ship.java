@@ -419,7 +419,7 @@ public class Ship {
 	 * @return If the two ships are effective and different, the distance between the two ships (i.e. the distance
 	 * 				between the two centres minus the sum of their radii).
 	 * 			| If ((ship1 != null) && (ship2!= null) && (ship1 != ship2))
-	 * 			|	then Position.getDistanceBetween(ship1.getPosition(), ship2.getPosition()) - (ship1.getRadius() + ship2.getRadius())
+	 * 			|	then result == Position.getDistanceBetween(ship1.getPosition(), ship2.getPosition()) - (ship1.getRadius() + ship2.getRadius())
 	 * @return If the two ships are effective and identical, zero.
 	 * 			| If ((ship1 != null) && (ship1 == ship2))
 	 * 			|	then result == 0
