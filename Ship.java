@@ -353,7 +353,7 @@ public class Ship {
 	 *			velocity with given xComponent and yComponent, but the speed is set to the speedLimit. More concretely,
 	 *			the xComponent of the new velocity of this ship is set to (xComponent * getSpeedLimit() / speed) and the
 	 *			yComponent of the new velocity of this ship is set to (yComponent * getSpeedLimit() / speed), where
-	 *			speed is the speed corresponding with the velocity with given xComponent and yComponent.
+	 *			speed is the speed corresponding to the velocity with given xComponent and yComponent.
 	 *		 | if (! this.canHaveAsVelocity(new Velocity(xComponent, yComponent))
 	 *		 | 		then (new.getVelocity().getxComponent() == xComponent * getSpeedLimit / Math.hypot(xComponent, yComponent))
 	 *		 |			&& (new.getVelocity().getyComponent() == yComponent * getSpeedLimit / Math.hypot(xComponent, yComponent))
