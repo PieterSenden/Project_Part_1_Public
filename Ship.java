@@ -506,7 +506,7 @@ public class Ship {
 	 * 			The first ship.
 	 * @param ship2
 	 * 			The second ship.
-	 * @return Null, if the ships will not collide
+	 * @return null, if the ships will not collide
 	 * 			| if (getTimeToCollision(ship1, ship2) == Double.POSITIVE_INFINITY)
 	 * 			|	then return null 
 	 * @return If the ships will collide, the result satisfies the following condition(s):
