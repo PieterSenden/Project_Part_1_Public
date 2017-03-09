@@ -48,13 +48,13 @@ public class Position {
 	/**
 	 * Check whether the given Coordinate is a valid Coordinate for any position.
 	 *  
-	 * @param  Coordinate
-	 *         The Coordinate to check.
-	 * @return true iff the given Coordinate is a finite number.
-	 *       | result == Double.isFinite(Coordinate)
+	 * @param  coordinate
+	 *         The coordinate to check.
+	 * @return true iff the given coordinate is a finite number.
+	 *       | result == Double.isFinite(coordinate)
 	*/
-	public static boolean isValidCoordinate(double Coordinate) {
-		return Double.isFinite(Coordinate);
+	public static boolean isValidCoordinate(double coordinate) {
+		return Double.isFinite(coordinate);
 	}
 	
 	/**
