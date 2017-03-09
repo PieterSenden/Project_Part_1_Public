@@ -441,7 +441,7 @@ public class Ship {
 	 * 			The second ship
 	 * @return If the two ships are effective and different, true iff the distance between the two ships is non-positive.
 	 * 			| If ((ship1 != null) && (ship2!= null) && (ship1 != ship2))
-	 * 			|	then return (Ship.getDistanceBetween(ship1, ship2) <= 0)
+	 * 			|	then result == (Ship.getDistanceBetween(ship1, ship2) <= 0)
 	 * @return If the two ships are effective and identical, true.
 	 * 			| If ((ship1 != null) && (ship1 == ship2))
 	 * 			|	then result == true
