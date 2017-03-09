@@ -299,12 +299,14 @@ public class Ship {
 	}
 	
 	/**
-	 * Check whether the given velocity is a valid velocity for any ship.
+	 * Check whether this ship can have the given velocity as its velocity.
 	 *  
 	 * @param  velocity
 	 *         The velocity to check.
-	 * @return true iff the given velocity is effective.
-	 *       | result == velocity != null
+	 * @return true iff the given velocity is effective and the associated speed does not exceed
+	 *		the speedLimit of this ship.
+	 *       | result == (velocity != null) && (Math.sqrt( Math.pow(velocity.getxComponent(),2) +
+	 *	 |		Math.pow(velocity.getyComponent(),2) ) <= getSpeedLimit)
 	*/
 	public boolean canHaveAsVelocity(Velocity velocity) {
 		if (velocity == null)
