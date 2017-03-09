@@ -84,6 +84,7 @@ public class Ship {
 	/**
 	 * @return A copy of this ship.
 	 */
+	@Override
 	public Ship clone() {
 		return new Ship(getPosition().getxCoordinate(), getPosition().getyCoordinate(), getVelocity().getxComponent(),
 				getVelocity().getyComponent(), getRadius(), getOrientation());
