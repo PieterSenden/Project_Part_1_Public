@@ -10,8 +10,8 @@ import be.kuleuven.cs.som.annotate.*;
  *       | isValidPosition(getPosition())
  * @invar  The orientation of each ship must be a valid orientation for any ship.
  *       | isValidOrientation(getOrientation())
- * @invar  Each ship can have its radius as radius.
- *       | canHaveAsRadius(this.getRadius())
+ * @invar  The radius of each ship must be a valid radius for any ship.
+ *       | isValidRadius(this.getRadius())
  * @invar  The minimal radius of each ship must be a valid minimal radius for any ship.
  *       | isValidMinimalRadius(getMinimalRadius())
  * @invar  The velocity of each ship must be a valid velocity for any ship.
