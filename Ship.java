@@ -14,8 +14,7 @@ import be.kuleuven.cs.som.annotate.*;
  *       | canHaveAsRadius(this.getRadius())
  * @invar  The minimal radius of each ship must be a valid minimal radius for any ship.
  *       | isValidMinimalRadius(getMinimalRadius())
- * @invar  The velocity of each ship must be a valid velocity for any
- *         ship.
+ * @invar  The velocity of each ship must be a valid velocity for any ship.
  *       | isValidVelocity(getVelocity())
  * @invar  Each ship can have its speed limit as speed limit .
  *       | canHaveAsSpeedLimit(this.getSpeedLimit())
