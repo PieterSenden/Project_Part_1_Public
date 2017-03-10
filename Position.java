@@ -6,13 +6,13 @@ import be.kuleuven.cs.som.annotate.Raw;
 /**
  * A class representing the position of a ship.
  * 
- * @author Joris & Pieter
+ * @author Joris Ceulemans & Pieter Senden
  * @version 1.0
  * 
  * @invar  The xCoordinate of each position must be a valid xCoordinate for any position.
- *       | isValidxCoordinate(getxCoordinate())
+ *       | isValidCoordinate(getxCoordinate())
  * @invar  The yCoordinate of each position must be a valid yCoordinate for any position.
- *       | isValidyCoordinate(getyCoordinate())
+ *       | isValidCoordinate(getyCoordinate())
  */
 public class Position {
 	
@@ -46,7 +46,7 @@ public class Position {
 	}
 	
 	/**
-	 * Check whether the given Coordinate is a valid Coordinate for any position.
+	 * Check whether the given coordinate is a valid coordinate for any position.
 	 *  
 	 * @param  coordinate
 	 *         The coordinate to check.
