@@ -14,12 +14,12 @@ import be.kuleuven.cs.som.annotate.*;
  *       | isValidRadius(this.getRadius())
  * @invar  The minimal radius of each ship must be a valid minimal radius for any ship.
  *       | isValidMinimalRadius(getMinimalRadius())
- * @invar  The velocity of each ship must be a valid velocity for any ship.
- *       | isValidVelocity(getVelocity())
+ * @invar  Each ship can have its velocity as velocity
+ *       | canHaveAsVelocity(getVelocity())
  * @invar  Each ship can have its speed limit as speed limit .
  *       | canHaveAsSpeedLimit(this.getSpeedLimit())
  * 
- * @author Joris & Pieter
+ * @author Joris Ceulemans & Pieter Senden
  * @version 1.0
  *
  */
@@ -105,7 +105,7 @@ public class Ship {
 	 * @param  position
 	 *         The position to check.
 	 * @return true iff the given position is effective.
-	 *       | result == position != null
+	 *       | result == (position != null)
 	 */
 	
 	public static boolean isValidPosition(Position position) {
