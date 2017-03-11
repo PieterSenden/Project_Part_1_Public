@@ -6,13 +6,13 @@ import be.kuleuven.cs.som.annotate.Raw;
 /**
  * A class representing the velocity of a ship.
  * 
- * @author Joris & Pieter
+ * @author Joris Ceulemans & Pieter Senden
  * @version 1.0
  * 
  * @invar  The xComponent of each velocity must be a valid xComponent for any velocity.
- *       | isValidxComponent(getxComponent())
+ *       | isValidComponent(getxComponent())
  * @invar  The yComponent of each velocity must be a valid yComponent for any velocity.
- *       | isValidyComponent(getyComponent())
+ *       | isValidComponent(getyComponent())
  */
 
 public class Velocity {
@@ -44,15 +44,15 @@ public class Velocity {
 	}
 	
 	/**
-	 * Check whether the given Component is a valid Component for any velocity.
+	 * Check whether the given component is a valid component for any velocity.
 	 *  
-	 * @param  Component
-	 *         The Component to check.
-	 * @return true iff the given Component is a finite number.
-	 *       | result == Double.isFinite(Component)
+	 * @param  component
+	 *         The component to check.
+	 * @return true iff the given component is a finite number.
+	 *       | result == Double.isFinite(component)
 	*/
-	public static boolean isValidComponent(double Component) {
-		return Double.isFinite(Component);
+	public static boolean isValidComponent(double component) {
+		return Double.isFinite(component);
 	}
 	
 	/**

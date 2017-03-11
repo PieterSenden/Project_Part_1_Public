@@ -6,13 +6,13 @@ import be.kuleuven.cs.som.annotate.Raw;
 /**
  * A class representing the position of a ship.
  * 
- * @author Joris & Pieter
+ * @author Joris Ceulemans & Pieter Senden
  * @version 1.0
  * 
  * @invar  The xCoordinate of each position must be a valid xCoordinate for any position.
- *       | isValidxCoordinate(getxCoordinate())
+ *       | isValidCoordinate(getxCoordinate())
  * @invar  The yCoordinate of each position must be a valid yCoordinate for any position.
- *       | isValidyCoordinate(getyCoordinate())
+ *       | isValidCoordinate(getyCoordinate())
  */
 public class Position {
 	
@@ -46,15 +46,15 @@ public class Position {
 	}
 	
 	/**
-	 * Check whether the given Coordinate is a valid Coordinate for any position.
+	 * Check whether the given coordinate is a valid coordinate for any position.
 	 *  
-	 * @param  Coordinate
-	 *         The Coordinate to check.
-	 * @return true iff the given Coordinate is a finite number.
-	 *       | result == Double.isFinite(Coordinate)
+	 * @param  coordinate
+	 *         The coordinate to check.
+	 * @return true iff the given coordinate is a finite number.
+	 *       | result == Double.isFinite(coordinate)
 	*/
-	public static boolean isValidCoordinate(double Coordinate) {
-		return Double.isFinite(Coordinate);
+	public static boolean isValidCoordinate(double coordinate) {
+		return Double.isFinite(coordinate);
 	}
 	
 	/**
@@ -65,8 +65,8 @@ public class Position {
 	 * @post   The xCoordinate of this new position is equal to the given xCoordinate.
 	 *       | new.getxCoordinate() == xCoordinate
 	 * @throws IllegalCoordinateException
-	 *         The given xCoordinate is not a valid xCoordinate for any position.
-	 *       | ! isValidxCoordinate(getxCoordinate())
+	 *         The given xCoordinate is not a valid coordinate for any position.
+	 *       | ! isValidCoordinate(getxCoordinate())
 	 */
 	@Raw
 	public void setxCoordinate(double xCoordinate) throws IllegalCoordinateException {
@@ -97,8 +97,8 @@ public class Position {
 	 * @post   The yCoordinate of this new position is equal to the given yCoordinate.
 	 *       | new.getyCoordinate() == yCoordinate
 	 * @throws IllegalCoordinateException
-	 *         The given yCoordinate is not a valid yCoordinate for any position.
-	 *       | ! isValidyCoordinate(getyCoordinate())
+	 *         The given yCoordinate is not a valid coordinate for any position.
+	 *       | ! isValidCoordinate(getyCoordinate())
 	 */
 	@Raw
 	public void setyCoordinate(double yCoordinate) throws IllegalCoordinateException {
@@ -143,7 +143,7 @@ public class Position {
 	 * along the X-axis at index 0 and the position along the Y-axis at index 1. 
 	 * @return  an array of length 2, with the position
 	 * 			along the X-axis at index 0 and the position along the Y-axis at index 1.
-	 * 			| new double[] {getxCoordinate(), getyCoordinate()}
+	 * 			| result == new double[] {getxCoordinate(), getyCoordinate()}
 	 */
 	public double[] getAsArray() {
 		return new double[] {getxCoordinate(), getyCoordinate()};
@@ -157,7 +157,7 @@ public class Position {
 	 * @param pos2
 	 * 			The second position
 	 * @return If both positions are effective, the Euclidean distance between them is returned.
-	 * 			| Math.sqrt( (pos1.getxCoordinate() - pos2.getxCoordinate())^2 +
+	 * 			| result == Math.sqrt( (pos1.getxCoordinate() - pos2.getxCoordinate())^2 +
 	 *			| 	(pos1.getyCoordinate() - pos2.getyCoordinate())^2 )
 	 * @throws NullPointerException
 	 * 			One of the positions is not effective

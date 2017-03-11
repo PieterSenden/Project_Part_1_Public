@@ -10,17 +10,16 @@ import be.kuleuven.cs.som.annotate.*;
  *       | isValidPosition(getPosition())
  * @invar  The orientation of each ship must be a valid orientation for any ship.
  *       | isValidOrientation(getOrientation())
- * @invar  Each ship can have its radius as radius.
- *       | canHaveAsRadius(this.getRadius())
+ * @invar  The radius of each ship must be a valid radius for any ship.
+ *       | isValidRadius(this.getRadius())
  * @invar  The minimal radius of each ship must be a valid minimal radius for any ship.
  *       | isValidMinimalRadius(getMinimalRadius())
- * @invar  The velocity of each ship must be a valid velocity for any
- *         ship.
- *       | isValidVelocity(getVelocity())
+ * @invar  Each ship can have its velocity as velocity
+ *       | canHaveAsVelocity(getVelocity())
  * @invar  Each ship can have its speed limit as speed limit .
  *       | canHaveAsSpeedLimit(this.getSpeedLimit())
  * 
- * @author Joris & Pieter
+ * @author Joris Ceulemans & Pieter Senden
  * @version 1.0
  *
  */
@@ -85,6 +84,7 @@ public class Ship {
 	/**
 	 * @return A copy of this ship.
 	 */
+	@Override
 	public Ship clone() {
 		return new Ship(getPosition().getxCoordinate(), getPosition().getyCoordinate(), getVelocity().getxComponent(),
 				getVelocity().getyComponent(), getRadius(), getOrientation());
@@ -105,7 +105,7 @@ public class Ship {
 	 * @param  position
 	 *         The position to check.
 	 * @return true iff the given position is effective.
-	 *       | result == position != null
+	 *       | result == (position != null)
 	 */
 	
 	public static boolean isValidPosition(Position position) {
@@ -138,11 +138,11 @@ public class Ship {
 	 * 
 	 * @param  xCoordinate
 	 *         The new xCoordinate for the position for this ship.
-	 * @param  YCoordinate
+	 * @param  yCoordinate
 	 *         The new yCoordinate for the position for this ship.
-	 * @post   The xCoordinate of the position of this new ship is equal to the given position.
+	 * @post   The xCoordinate of the position of this new ship is equal to the given xCoordinate.
 	 *       | new.getPosition().getxCoordinate() == xCoordinate
-	 * @post   The yCoordinate of the position of this new ship is equal to the given position.
+	 * @post   The yCoordinate of the position of this new ship is equal to the given yCoordinate.
 	 *       | new.getPosition().getyCoordinate() == yCoordinate
 	 * @throws IllegalCoordinateException
 	 * 		   One of the given coordinates is not valid
@@ -228,14 +228,13 @@ public class Ship {
 	}
 	
 	/**
-	 * Check whether this ship can have the given radius as its radius.
+	 * Check whether the given radius is a valid radius for any ship.
 	 *  
 	 * @param  radius
 	 *         The radius to check.
 	 * @return true iff the given radius is larger than the minimal radius for any ship.
 	 *       | result == (radius >= getMinimalRadius())
 	*/
-	@Raw
 	public static boolean isValidRadius(double radius) {
 		return radius >= getMinimalRadius();
 	}
@@ -249,7 +248,7 @@ public class Ship {
 	/**
 	 * Return the minimal radius of any ship.
 	 */
-	@Basic @Raw
+	@Basic
 	public static double getMinimalRadius() {
 		return minimalRadius;
 	}
@@ -277,7 +276,6 @@ public class Ship {
 	 *         The given minimal radius is not a valid minimal radius for any ship.
 	 *       | ! isValidMinimalRadius(getMinimalRadius())
 	 */
-	@Raw
 	public static void setMinimalRadius(double minimalRadius) throws IllegalArgumentException {
 		if (! isValidMinimalRadius(minimalRadius))
 			throw new IllegalArgumentException();
@@ -302,12 +300,14 @@ public class Ship {
 	}
 	
 	/**
-	 * Check whether the given velocity is a valid velocity for any ship.
+	 * Check whether this ship can have the given velocity as its velocity.
 	 *  
 	 * @param  velocity
 	 *         The velocity to check.
-	 * @return true iff the given velocity is effective.
-	 *       | result == velocity != null
+	 * @return true iff the given velocity is effective and the associated speed does not exceed
+	 *		the speedLimit of this ship.
+	 *       | result == (velocity != null) && (Math.sqrt( Math.pow(velocity.getxComponent(),2) +
+	 *	 |		Math.pow(velocity.getyComponent(),2) ) <= getSpeedLimit)
 	*/
 	public boolean canHaveAsVelocity(Velocity velocity) {
 		if (velocity == null)
@@ -341,7 +341,7 @@ public class Ship {
 	 * 
 	 * @param  xComponent
 	 *         The new xComponent for the velocity for this ship.
-	 * @param  YComponent
+	 * @param  yComponent
 	 *         The new yComponent for the velocity for this ship.
 	 * @post   If this ship can have the velocity with the given xComponent and  given yComponent as its velocity, 
 	 * 			then the xComponent of the velocity of this new ship is equal to the given xComponent,
@@ -354,12 +354,12 @@ public class Ship {
 	 *			velocity with given xComponent and yComponent, but the speed is set to the speedLimit. More concretely,
 	 *			the xComponent of the new velocity of this ship is set to (xComponent * getSpeedLimit() / speed) and the
 	 *			yComponent of the new velocity of this ship is set to (yComponent * getSpeedLimit() / speed), where
-	 *			speed is the speed corresponding with the velocity with given xComponent and yComponent.
+	 *			speed is the speed corresponding to the velocity with given xComponent and yComponent.
 	 *		 | if (! this.canHaveAsVelocity(new Velocity(xComponent, yComponent))
 	 *		 | 		then (new.getVelocity().getxComponent() == xComponent * getSpeedLimit / Math.hypot(xComponent, yComponent))
 	 *		 |			&& (new.getVelocity().getyComponent() == yComponent * getSpeedLimit / Math.hypot(xComponent, yComponent))
 	 */
-	@Raw
+	@Raw @Model
 	private void setVelocity(double xComponent, double yComponent) {
 		if (this.getVelocity() == null)
 			this.velocity = new Velocity(0, 0);
@@ -367,9 +367,8 @@ public class Ship {
 			this.velocity.setVelocity(xComponent, yComponent);
 		else {
 			double speed = Math.hypot(xComponent, yComponent);
-			xComponent = xComponent * getSpeedLimit() / speed;
-			yComponent = yComponent * getSpeedLimit() / speed;
-			setVelocity(xComponent, yComponent);
+			this.velocity.setxComponent(xComponent * getSpeedLimit() / speed);
+			this.velocity.setyComponent(yComponent * getSpeedLimit() / speed);
 		}
 	}
 	
@@ -388,14 +387,13 @@ public class Ship {
 	}
 	
 	/**
-	 * Check whether this ship can have the given speed limit as its speed limit.
+	 * Check whether the given speedLimit is a valid speedLimit for any ship.
 	 *  
 	 * @param  speedLimit
 	 *         The speed limit to check.
 	 * @return True if and only if the given speed limit is strictly positive and not greater than the speed of light
 	 *       | result == (0 < speedLimit) && (speedLimit <= SPEED_OF_LIGHT)
 	*/
-	@Raw
 	public static boolean isValidSpeedLimit(double speedLimit) {
 		return (0 < speedLimit) && (speedLimit <= SPEED_OF_LIGHT);
 	}
@@ -422,7 +420,7 @@ public class Ship {
 	 * @return If the two ships are effective and different, the distance between the two ships (i.e. the distance
 	 * 				between the two centres minus the sum of their radii).
 	 * 			| If ((ship1 != null) && (ship2!= null) && (ship1 != ship2))
-	 * 			|	then Position.getDistanceBetween(ship1.getPosition(), ship2.getPosition()) - (ship1.getRadius() + ship2.getRadius())
+	 * 			|	then result == Position.getDistanceBetween(ship1.getPosition(), ship2.getPosition()) - (ship1.getRadius() + ship2.getRadius())
 	 * @return If the two ships are effective and identical, zero.
 	 * 			| If ((ship1 != null) && (ship1 == ship2))
 	 * 			|	then result == 0
@@ -444,7 +442,7 @@ public class Ship {
 	 * 			The second ship
 	 * @return If the two ships are effective and different, true iff the distance between the two ships is non-positive.
 	 * 			| If ((ship1 != null) && (ship2!= null) && (ship1 != ship2))
-	 * 			|	then return (Ship.getDistanceBetween(ship1, ship2) <= 0)
+	 * 			|	then result == (Ship.getDistanceBetween(ship1, ship2) <= 0)
 	 * @return If the two ships are effective and identical, true.
 	 * 			| If ((ship1 != null) && (ship1 == ship2))
 	 * 			|	then result == true
@@ -509,7 +507,7 @@ public class Ship {
 	 * 			The first ship.
 	 * @param ship2
 	 * 			The second ship.
-	 * @return Null, if the ships will not collide
+	 * @return null, if the ships will not collide
 	 * 			| if (getTimeToCollision(ship1, ship2) == Double.POSITIVE_INFINITY)
 	 * 			|	then return null 
 	 * @return If the ships will collide, the result satisfies the following condition(s):
