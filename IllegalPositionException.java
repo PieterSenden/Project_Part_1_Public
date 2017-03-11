@@ -3,7 +3,7 @@ package asteroids.model;
 /**
  * A class for signaling exceptions in positions.
  * 
- * @author Joris & Pieter
+ * @author Joris Ceulemans & Pieter Senden
  * @version 1.0
  */
 public class IllegalPositionException extends RuntimeException {
