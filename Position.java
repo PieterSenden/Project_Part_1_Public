@@ -65,8 +65,8 @@ public class Position {
 	 * @post   The xCoordinate of this new position is equal to the given xCoordinate.
 	 *       | new.getxCoordinate() == xCoordinate
 	 * @throws IllegalCoordinateException
-	 *         The given xCoordinate is not a valid xCoordinate for any position.
-	 *       | ! isValidxCoordinate(getxCoordinate())
+	 *         The given xCoordinate is not a valid coordinate for any position.
+	 *       | ! isValidCoordinate(getxCoordinate())
 	 */
 	@Raw
 	public void setxCoordinate(double xCoordinate) throws IllegalCoordinateException {
@@ -97,8 +97,8 @@ public class Position {
 	 * @post   The yCoordinate of this new position is equal to the given yCoordinate.
 	 *       | new.getyCoordinate() == yCoordinate
 	 * @throws IllegalCoordinateException
-	 *         The given yCoordinate is not a valid yCoordinate for any position.
-	 *       | ! isValidyCoordinate(getyCoordinate())
+	 *         The given yCoordinate is not a valid coordinate for any position.
+	 *       | ! isValidCoordinate(getyCoordinate())
 	 */
 	@Raw
 	public void setyCoordinate(double yCoordinate) throws IllegalCoordinateException {
@@ -143,7 +143,7 @@ public class Position {
 	 * along the X-axis at index 0 and the position along the Y-axis at index 1. 
 	 * @return  an array of length 2, with the position
 	 * 			along the X-axis at index 0 and the position along the Y-axis at index 1.
-	 * 			| new double[] {getxCoordinate(), getyCoordinate()}
+	 * 			| result == new double[] {getxCoordinate(), getyCoordinate()}
 	 */
 	public double[] getAsArray() {
 		return new double[] {getxCoordinate(), getyCoordinate()};
