@@ -1,7 +1,7 @@
 package asteroids.model;
 
 /**
- * A class for signaling exceptions in positions.
+ * A class for signaling exceptions in radii.
  * 
  * @author Joris Ceulemans & Pieter Senden
  * @version 1.0
